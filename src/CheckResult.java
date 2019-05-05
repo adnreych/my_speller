@@ -22,10 +22,10 @@ public class CheckResult extends HttpServlet {
 
 		PrintWriter writer = response.getWriter();
 		String url = request.getParameter("url");
-		// https://glloss.ru/
 
 		writer.println("<html>" + "<head><title>" + "Результат проверки" + "</title></head>\n" + "<body>"
-				+ Speller.spellCheck(new StringBuilder(url)) + "</body>" + "</html>");
+				+ Speller.spellCheck(url) + "</body>" + "</html>");
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
