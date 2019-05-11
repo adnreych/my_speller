@@ -7,7 +7,7 @@ public class GetText {
 	private HashSet<String> words;
 
 	GetText(StringBuilder s) {
-		Pattern pattern = Pattern.compile("[А-Яа-яё]+&?", // &? - обработка тегов вроде &nbsp, неизвестно работает ли
+		Pattern pattern = Pattern.compile("[А-Яа-яЁё]+&?", // &? - обработка тегов вроде &nbsp, неизвестно работает ли
 				Pattern.MULTILINE);
 		Matcher matcher = pattern.matcher(s);
 		HashSet<String> words = new HashSet<>();

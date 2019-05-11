@@ -22,9 +22,20 @@ public class CheckResult extends HttpServlet {
 
 		PrintWriter writer = response.getWriter();
 		String url = request.getParameter("url");
+		String[] urlArray = url.split("\n");
+		String result = "";
+		for (int i = 0; i < urlArray.length; i++) {
+			result += "<b> Проверка орфографии сайта " + urlArray[i] + " : </b>"
+					+ Speller.spellCheck(urlArray[i]).toString() + "<br /> <br />";
+		}
 
-		writer.println("<html>" + "<head><title>" + "Результат проверки" + "</title></head>\n" + "<body>"
-				+ Speller.spellCheck(url) + "</body>" + "</html>");
+		writer.println(
+				"<html> <head> <title>Результат проверки</title></head>" + "<body>" + result + "</body>" + "</html>");
+
+		/*
+		 * writer.println("<html> <head> <title>Результат проверки</title></head>" +
+		 * "<body>" + Speller.spellCheck(url) + "</body>" + "</html>");
+		 */
 
 	}
 

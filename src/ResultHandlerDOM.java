@@ -19,7 +19,7 @@ public class ResultHandlerDOM {
 		return result;
 	}
 
-	public void resultHandlerDOM(StringBuilder xmlSpeller)
+	private void resultHandlerDOM(StringBuilder xmlSpeller)
 			throws ParserConfigurationException, SAXException, IOException {
 		HashMap<String, ArrayList<String>> result = new HashMap<>();
 		ByteArrayInputStream input = new ByteArrayInputStream(xmlSpeller.toString().getBytes("UTF-8"));
@@ -39,15 +39,19 @@ public class ResultHandlerDOM {
 		this.result = result;
 	}
 
+	public String resultCluster = ""; // test1
+
 	public HashMap<String, ArrayList<String>> handResult(String s) {
 		HashMap<String, ArrayList<String>> result = new HashMap<String, ArrayList<String>>();
 		SourceHtml checkedUrl = new SourceHtml(s.toString()); // получаем исходный код проверяемого сайта
 		GetText getText = new GetText(checkedUrl.getSourceHtml()); // отбираем все слова с русскими символами
 		HashSet<String> cl = getText.getUrlClusters(); // разбиваем на блоки, чтобы не было слишком длинного URL
 		ResultHandlerDOM rhd = new ResultHandlerDOM();
+		String resultCluster = cl.toString(); // test1
 		for (String cluster : cl) {
 			SourceHtml sourceHtml = new SourceHtml(
 					"https://speller.yandex.net/services/spellservice/checkText?text=" + cluster);
+
 			try {
 				rhd.resultHandlerDOM(sourceHtml.getSourceHtml());
 				result.putAll(rhd.getResult());
@@ -56,7 +60,7 @@ public class ResultHandlerDOM {
 			}
 		}
 		// result.removeIf(hm -> hm.isEmpty()==true); // удаляем нулевые элементы из
-		// result
+		this.resultCluster = resultCluster; // test1
 		return result;
 	}
 }
